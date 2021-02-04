@@ -22,7 +22,7 @@ class Shark extends Animal {
   @override
   int armor = 200;
 
-  Shark(String name, String noise, Type type, Legs legs, AnimalColor color,
-      int age, int health, int armor)
+  Shark({String name, String noise, Type type, Legs legs, AnimalColor color,
+      int age, int health, int armor})
       : super(name, noise, type, legs, color, age, health, armor);
 }

@@ -22,7 +22,7 @@ class Salmon extends Animal {
   @override
   int armor = 2;
 
-  Salmon(String name, String noise, Type type, Legs legs, AnimalColor color,
-      int age, int health, int armor)
+  Salmon({String name, String noise, Type type, Legs legs, AnimalColor color,
+      int age, int health, int armor})
       : super(name, noise, type, legs, color, age, health, armor);
 }

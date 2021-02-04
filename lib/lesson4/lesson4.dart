@@ -1,29 +1,114 @@
 import 'package:FlutterSkolaDemo/lesson4/cars/Car.dart';
 
+import 'animals/Animal.dart';
+
 /// Урок 4: классы и перечисления
-/// TODO сделать класс пример - животные. от него отнаследовать 2 класса кошки и собаки
-/// TODO юзеру нужно сделать свой класс - машина и от него отнаследовать 3 типа разных машин
-/// TODO придумать как минимум 7 заданий на работу с классам
-/// Примеров в уроке -
-/// Заданий в уроке -
-/// Максимальное количество баллов =
-/// Рекомендуемое количество баллов =
+/// Примеров в уроке - 3
+/// Заданий в уроке - 7
+/// Максимальное количество баллов = 13
+/// Рекомендуемое количество баллов = 10
 class Lesson4 {
   ///ПРИМЕРЫ:
 
-  ///TODO примеры
-  /// 1. Найти какое животное из списка съест всех
-  /// 2. Найти всех черных животных\четвероногих\птиц и т.п
-  /// 3. Посчитать общее количество ног в списке животных
+  /// Найти самое сильное животное
+  Animal strongest(List<Animal> animals) {
+    var strongest = animals.first;
 
+    animals.forEach((animal) {
+      if (strongest.eat(animal)) {
+        strongest = animal;
+      }
+    });
+    return strongest;
+  }
+
+  /// Посчитать все ноги в списке
+  int allLegs(List<Animal> animals) {
+    var legs = 0;
+    animals.forEach((animal) {
+      if (animal.legs == Legs.two) {
+        legs += 2;
+      } else if (animal.legs == Legs.four) {
+        legs += 4;
+      }
+    });
+    return legs;
+  }
+
+  /// Найти всех животных по фильтру
+  List<Animal> findAllByFilter(
+      List<Animal> animals, AnimalsFilters animalsFilters) {
+    var filteredList = animals;
+    if (animalsFilters == AnimalsFilters.twoLegs) {
+      filteredList.removeWhere((animal) => animal.legs != Legs.two);
+    }
+    if (animalsFilters == AnimalsFilters.fourLegs) {
+      filteredList.removeWhere((animal) => animal.legs != Legs.four);
+    }
+    if (animalsFilters == AnimalsFilters.colorBlack) {
+      filteredList.removeWhere((animal) => animal.color != AnimalColor.black);
+    }
+    if (animalsFilters == AnimalsFilters.typeMammal) {
+      filteredList.removeWhere((animal) => animal.type != Type.mammal);
+    }
+    if (animalsFilters == AnimalsFilters.age42) {
+      filteredList.removeWhere((animal) => animal.age != 42);
+    }
+    return filteredList;
+  }
 }
 
 ///ЗАДАНИЯ:
 
-///TODO задания
-///1.Реализовать функции в Car
-///2 Реализовать 2-3 машины Тесла, Лада и Рено
-///3. Реализовать функцию подсчета сколько потребуется топлива
-///и сколько оно будет стоить если ехать указаное кол-во времени при определенной цене топлива
-///4.Найти самый быстрый автомобиль из списка
+/// Простейшная (1 балла)
 ///
+/// Перейдите в класс [Car]
+/// Реализуйте внутри класса перечисление [CarColor]
+/// Добавьте как минимум 5 значений
+/// Значения none не должно остаться
+
+/// Простейшная (1 балла)
+///
+/// Перейдите в класс [Car]
+/// Реализуйте внутри класса перечисление [Transmission]
+/// Добавьте 2 значения - ручная и автоматическая
+/// Значения none не должно остаться
+
+/// Средняя (2 балла)
+///
+/// Перейдите в класс [Car]
+/// Реализуйте внутри класса функцию [engineVolume]
+/// Рассчитать мощность по формуле:
+/// 1 л.с. равна 0,7355 кВт
+
+/// Простая (2 балла)
+///
+/// Перейдите в класс [Car]
+/// Реализуйте внутри класса функцию [isFaster]
+/// Вернуть true, если [maxSpeed] текущей машины больше
+
+/// Средняя (3 балла)
+///
+/// В папке [lesson4/cars] по аналогии с животными создайте 3 модели машин,
+/// которые наследуют класс Cars. Названия для классов [Tesla], [Lada], [Reno]
+/// Поле [name] должно называться так же как и класс
+/// Для [Lada] указать [fuelConsumption] равное 12
+
+/// Средняя (4 балла)
+/// Реализовать функцию подсчета сколько потребуется топлива и его цену,
+/// при заданом автомобиле, расстоянии и цене топлива за литр
+/// Верните одно значение в map,
+/// где первое значение - кол-во топлива,
+/// а второе - его цена
+Map<double, double> fuelCountAndPrice(Car car,
+    int routeInMeters, double fuelPricePerLiter) {
+  //TODO
+}
+
+/// Средняя (2 балла)
+/// Найти самый быстрый автомобиль из списка
+/// После создания всех типов машин, перейти в [lesson4_test]
+/// и включить тест [fastestCarAlive]
+Car fastestCarAlive(List<Car> cars) {
+  //TODO
+}

@@ -25,7 +25,7 @@ class Cat extends Animal {
   @override
   int armor = 13;
 
-  Cat(String name, String noise, Type type, Legs legs, AnimalColor color,
-      int age, int health, int armor)
+  Cat({String name, String noise, Type type, Legs legs, AnimalColor color,
+      int age, int health, int armor})
       : super(name, noise, type, legs, color, age, health, armor);
 }

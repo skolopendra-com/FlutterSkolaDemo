@@ -25,7 +25,14 @@ class Dog extends Animal {
   @override
   int armor = 12;
 
-  Dog(String name, String noise, Type type, Legs legs, AnimalColor color,
-      int age, int health, int armor)
+  Dog(
+      {String name,
+      String noise,
+      Type type,
+      Legs legs,
+      AnimalColor color,
+      int age,
+      int health,
+      int armor})
       : super(name, noise, type, legs, color, age, health, armor);
 }

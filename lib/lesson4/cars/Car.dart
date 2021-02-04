@@ -1,19 +1,25 @@
 abstract class Car {
+  //Название марки машины
   String name;
 
+  //Объем двигателя
   double get engineVolume{
-    //1 л.с. равна 0,7355 кВт при вычислении мощности двигателя.
     //TODO
   }
 
+  //Лошадиные силы
   int horsepower;
 
+  //Цвет машины
   CarColor color;
 
+  //Тип трансмиссии
   Transmission transmission;
 
+  //Максимальная скорость
   int maxSpeed;
 
+  //Расход топлина на 100км
   int fuelConsumption;
 
   Car(
