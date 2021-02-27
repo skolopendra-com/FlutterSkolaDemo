@@ -65,7 +65,7 @@ class Lesson5 {
 /// 2 - [FormatException]
 /// любое другое - [Exception]
 /// Текст исключения может быть любой
-void throwSomeThing(int what){
+void throwSomeThing(int what) {
   //TODO
 }
 
@@ -73,7 +73,7 @@ void throwSomeThing(int what){
 ///
 /// Написать функцию, которая делит число на 0.
 /// Поймать исключение и вернуть само число [number]
-int divideByZero(int number){
+int divideByZero(int number) {
   //TODO
 }
 
@@ -84,7 +84,7 @@ int divideByZero(int number){
 /// если пришла строка, то вернуть ее длинну
 /// если пришло что-то еще то бросить [FormatException]
 /// Перед исключением добавить задержку в 5 секунд.
-Future<int> checkAndCount(Object object) async{
+Future<int> checkAndCount(Object object) async {
   //TODO
 }
 
@@ -95,7 +95,7 @@ Future<int> checkAndCount(Object object) async{
 /// После того как [checkAndCount] вернет оба результата
 /// выводить его до того пока [Lesson5.countSeconds] не закончит работать
 /// В конце выполнения всех действий вернуть true
-Future<bool> callAll() async{
+Future<bool> callAll() async {
   //TODO
 }
 
@@ -108,6 +108,6 @@ Future<bool> callAll() async{
 /// Сама функция принимает массив секунд, т.е очередь приготовления кофе.
 /// Если число в массиве не соотвествует списку выше, то игнорировать его
 /// В конце вернуть список сваренных напитков
-Future<List<String>> customUserOrder(List<int> seconds) async{
+Future<List<String>> customUserOrder(List<int> seconds) async {
   //TODO
 }

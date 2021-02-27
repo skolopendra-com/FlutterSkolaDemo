@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:FlutterSkolaDemo/lesson5/lesson5.dart';
 import 'package:test/test.dart';
 
@@ -55,19 +56,28 @@ void main() {
     expect(divideByZero(0), 0);
   });
 
-  test('3 points, checkAndCount', () async {
-    expect(await checkAndCount(42), 42);
-    expect(await checkAndCount('42'), 2);
-    try {
-      await checkAndCount([42]);
-    } catch (err) {
-      expect(err is FormatException, true);
-    }
-    try {
-      await checkAndCount([42, '42']);
-    } catch (err) {
-      expect(err is FormatException, true);
-    }
+  group('checkAndCount', () {
+    Timer timer;
+    setUp(() {
+      timer = Timer(Duration(milliseconds: 50100), () => fail('time out!'));
+    });
+
+    tearDown(() => timer.cancel());
+
+    test('simples values', () async {
+      expect(await checkAndCount(42), 42);
+      expect(await checkAndCount('42'), 2);
+    });
+
+    test('on 5 secods check. Check #1.', () async {
+      expect(checkAndCount([42]), throwsA(isA<FormatException>()));
+    });
+
+    //checkAndCount([42, '42']
+
+    test('on 5 secods check. Check #2.', () async {
+      expect(checkAndCount([42, '42']), throwsA(isA<FormatException>()));
+    });
   });
 
   test('4 points, callAll', () async {
