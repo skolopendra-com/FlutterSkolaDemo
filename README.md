@@ -1,6 +1,8 @@
-This is app for students who want to know what dart is it.
+Приложение для обучения стедентов компании Skölopendra языку программирования DART.
 
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+Репозиторий представляет из себя простое консольное приложение. Обучение разбито на уроки. В папке
+`lib/` вы найдете задания и примеры по каждому уроку. В папке `test/` лежат готовые юнит тесты для 
+них. Точка входа в приложение находится в папке `bin/`, если вы захотите вызвать тот или 
+иной метод для проверки, то делайте правки там. 
 
-To run app use console and command "dart run"
+Чтобы запустить приложение используйте команду 'dart run' в терминале IDE.
