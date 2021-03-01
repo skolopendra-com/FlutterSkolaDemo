@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:FlutterSkolaDemo/lesson5/lesson5.dart';
+
+import 'package:main/lesson5/lesson5.dart';
 import 'package:test/test.dart';
 
 void main() {

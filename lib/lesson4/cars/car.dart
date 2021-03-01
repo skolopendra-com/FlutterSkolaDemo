@@ -3,7 +3,7 @@ abstract class Car {
   String name;
 
   //Объем двигателя
-  double get engineVolume{
+  double get engineVolume {
     //TODO
   }
 
@@ -34,7 +34,6 @@ abstract class Car {
   bool isFaster(Car otherCar) {
     //TODO
   }
-
 }
 
 enum CarColor {

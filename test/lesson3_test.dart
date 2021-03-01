@@ -1,4 +1,4 @@
-import 'package:FlutterSkolaDemo/lesson3.dart';
+import 'package:main/lesson3.dart';
 import 'package:test/test.dart';
 
 void main() {

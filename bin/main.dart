@@ -1,4 +1,4 @@
-import 'package:FlutterSkolaDemo/lesson1.dart';
+import 'package:main/lesson1.dart';
 
 /// Это главная точка входа в приложение.
 /// Чтобы запустить приложение в консоли введите команду "dart run"

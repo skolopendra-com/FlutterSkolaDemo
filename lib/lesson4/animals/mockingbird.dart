@@ -1,4 +1,4 @@
-import 'package:FlutterSkolaDemo/lesson4/animals/Animal.dart';
+import 'animal.dart';
 
 class Mockingbird extends Animal {
   @override
@@ -25,7 +25,14 @@ class Mockingbird extends Animal {
   @override
   int armor = 1;
 
-  Mockingbird({String name, String noise, Type type, Legs legs, AnimalColor color,
-      int age, int health, int armor})
+  Mockingbird(
+      {String name,
+      String noise,
+      Type type,
+      Legs legs,
+      AnimalColor color,
+      int age,
+      int health,
+      int armor})
       : super(name, noise, type, legs, color, age, health, armor);
 }

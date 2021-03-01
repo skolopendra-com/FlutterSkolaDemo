@@ -1,6 +1,5 @@
-import 'package:FlutterSkolaDemo/lesson4/cars/Car.dart';
-
-import 'animals/Animal.dart';
+import 'animals/animal.dart';
+import 'cars/car.dart';
 
 /// Урок 4: классы и перечисления
 /// Примеров в уроке - 3
@@ -100,8 +99,8 @@ class Lesson4 {
 /// Верните одно значение в map,
 /// где первое значение - кол-во топлива,
 /// а второе - его цена
-Map<double, double> fuelCountAndPrice(Car car,
-    int routeInMeters, double fuelPricePerLiter) {
+Map<double, double> fuelCountAndPrice(
+    Car car, int routeInMeters, double fuelPricePerLiter) {
   //TODO
 }
 

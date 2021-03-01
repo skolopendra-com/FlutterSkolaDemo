@@ -1,5 +1,3 @@
-import 'dart:math';
-
 abstract class Animal {
   String name;
 
@@ -23,7 +21,7 @@ abstract class Animal {
       this.health, this.armor);
 
   bool eat(Animal otherAnimal) {
-     if (otherAnimal.defendLevel < defendLevel) {
+    if (otherAnimal.defendLevel < defendLevel) {
       print('attack is true cause your animal stronger');
       return true;
     } else {

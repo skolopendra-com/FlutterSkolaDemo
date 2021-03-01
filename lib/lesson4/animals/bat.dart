@@ -1,31 +1,31 @@
-import 'package:FlutterSkolaDemo/lesson4/animals/Animal.dart';
+import 'animal.dart';
 
-class Dog extends Animal {
+class Bat extends Animal {
   @override
-  String name = 'Собака';
-
-  @override
-  String noise = 'Гав';
+  String name = 'Летучая мышь';
 
   @override
-  Type type = Type.mammal;
+  String noise = 'I\'m Batman';
 
   @override
-  Legs legs = Legs.four;
+  Type type = Type.bird;
 
   @override
-  AnimalColor color = AnimalColor.white;
+  Legs legs = Legs.two;
 
   @override
-  int age = 2;
+  AnimalColor color = AnimalColor.black;
 
   @override
-  int health = 10;
+  int age = 1;
 
   @override
-  int armor = 12;
+  int health = 1;
 
-  Dog(
+  @override
+  int armor = 1;
+
+  Bat(
       {String name,
       String noise,
       Type type,

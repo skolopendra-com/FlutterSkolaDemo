@@ -1,12 +1,12 @@
-import 'package:FlutterSkolaDemo/lesson4/animals/Animal.dart';
-import 'package:FlutterSkolaDemo/lesson4/animals/Bat.dart';
-import 'package:FlutterSkolaDemo/lesson4/animals/Cat.dart';
-import 'package:FlutterSkolaDemo/lesson4/animals/Dog.dart';
-import 'package:FlutterSkolaDemo/lesson4/animals/Mockingbird.dart';
-import 'package:FlutterSkolaDemo/lesson4/animals/Salmon.dart';
-import 'package:FlutterSkolaDemo/lesson4/animals/Shark.dart';
-import 'package:FlutterSkolaDemo/lesson4/cars/Lada.dart';
-import 'package:FlutterSkolaDemo/lesson4/lesson4.dart';
+import 'package:main/lesson4/animals/animal.dart';
+import 'package:main/lesson4/animals/bat.dart';
+import 'package:main/lesson4/animals/cat.dart';
+import 'package:main/lesson4/animals/dog.dart';
+import 'package:main/lesson4/animals/mockingbird.dart';
+import 'package:main/lesson4/animals/salmon.dart';
+import 'package:main/lesson4/animals/shark.dart';
+import 'package:main/lesson4/cars/lada.dart';
+import 'package:main/lesson4/lesson4.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -41,12 +41,10 @@ void main() {
 
   //Проверка заданий из урока
 
-
-
   test('4 points, fuelCountAndPrice', () {
-    expect(fuelCountAndPrice(Lada(), 150, 29.90), {18.0 : 538.0});
-    expect(fuelCountAndPrice(Lada(), 420, 42.0), {50.0 : 2117.0});
-    expect(fuelCountAndPrice(Lada(), 123321, 123.321), {14799.0 : 1824968.0});
+    expect(fuelCountAndPrice(Lada(), 150, 29.90), {18.0: 538.0});
+    expect(fuelCountAndPrice(Lada(), 420, 42.0), {50.0: 2117.0});
+    expect(fuelCountAndPrice(Lada(), 123321, 123.321), {14799.0: 1824968.0});
   });
 
   /// Рабочий тест - часть задания
