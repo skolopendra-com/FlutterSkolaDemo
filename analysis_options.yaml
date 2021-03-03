@@ -12,4 +12,3 @@ linter:
     directives_ordering: false
     library_names: true
     file_names: true
-test
