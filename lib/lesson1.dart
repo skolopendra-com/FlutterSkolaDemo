@@ -49,7 +49,7 @@ int seconds(int hours, int minutes, int seconds) {
 /// Пользователь задает длину отрезка в саженях, аршинах и вершках (например, 8 саженей 2 аршина 11 вершков).
 /// Определить длину того же отрезка в метрах (в данном случае 18.98).
 /// 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
-int lengthInMeters(int sagenes, int arshins, int vershoks) {
+double lengthInMeters(int sagenes, int arshins, int vershoks) {
   //TODO
 }
 

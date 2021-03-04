@@ -76,22 +76,10 @@ void main() {
     expect(center([0.0, 2.0, 7.0, 8.0, -2.0]), [-3.0, -1.0, 4.0, 5.0, -5.0]);
   });
 
-  test('3 points, times', () {
-    expect(times([], []), 0.0);
-    expect(times([1, -4], [3, 2]), -5);
-    expect(times([-1, 2, -3], [3, -2, 4]), -19);
-  });
-
   test('3 points, accumulate', () {
     expect(accumulate([]), []);
     expect(accumulate([3]), [3]);
     expect(accumulate([-3, -1, 4, 5, -5]), [1, 3, 6, 10]);
-  });
-
-  test('3 points, factorize', () {
-    expect(factorize(2), [2]);
-    expect(factorize(75), [3, 5, 5]);
-    expect(factorize(342), [2, 3, 3, 19]);
   });
 
   test('4 points, factorizeToString', () {
@@ -108,16 +96,6 @@ void main() {
     expect(roman(1978), 'MCMLXXVIII');
     expect(roman(694), 'DCXCIV');
     expect(roman(49), 'XLIX');
-  });
-
-  test('5 points, russian', () {
-    expect(russian(375), 'триста семьдесят пять');
-    expect(russian(22964), 'двадцать две тысячи девятьсот шестьдесят четыре');
-    expect(russian(119508), 'сто девятнадцать тысяч пятьсот восемь');
-    expect(russian(2003), 'две тысячи три');
-    expect(russian(200002), 'двести тысяч два');
-    expect(russian(900000), 'девятьсот тысяч');
-    expect(russian(12), 'двенадцать');
   });
 
   test('2 points, containsIn', () {
@@ -138,12 +116,6 @@ void main() {
     expect({'b': 'c'}, from);
   });
 
-  test('2 points, whoAreInBoth', () {
-    expect(whoAreInBoth([], []), []);
-    expect(whoAreInBoth(['Marat', 'Mikhail'], ['Marat', 'Kirill']), ['Marat']);
-    expect(whoAreInBoth(['Marat', 'Mikhail'], ['Sveta', 'Kirill']), []);
-  });
-
   test('4 points, averageStockPrice', () {
     expect(averageStockPrice([]), {});
     expect(
@@ -161,21 +133,6 @@ void main() {
           {'MSFT': 100.0, 'MSFT': 200.0, 'NFLX': 40.0, 'NFLX': 50.0}
         ]),
         {'MSFT': 150.0, 'NFLX': 45.0});
-  });
-
-  test('4 points, findCheapestStuff', () {
-    expect(
-        findCheapestStuff({
-          'Мария': {'печенье': 20.0},
-          'Орео': {'печенье': 100.0}
-        }, 'торт'),
-        null);
-    expect(
-        findCheapestStuff({
-          'Мария': {'печенье': 20.0},
-          'Орео': {'печенье': 100.0}
-        }, 'торт'),
-        'Мария');
   });
 
   test('4 points, extractRepeats', () {
