@@ -41,7 +41,7 @@ class Lesson1 {
 /// Пользователь задает время в часах, минутах и секундах, например, 8:20:35.
 /// Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
 int seconds(int hours, int minutes, int seconds) {
-  //TODO
+  return hours * 3600 + minutes * 60 + seconds;
 }
 
 /// Тривиальная (1 балл)
@@ -50,7 +50,8 @@ int seconds(int hours, int minutes, int seconds) {
 /// Определить длину того же отрезка в метрах (в данном случае 18.98).
 /// 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
 double lengthInMeters(int sagenes, int arshins, int vershoks) {
-  //TODO
+  final totalVershkov = sagenes * 48 + arshins * 16 + vershoks;
+  return double.parse((totalVershkov * 4.445 / 100).toStringAsFixed(2));
 }
 
 /// Простая (2 балла)
@@ -58,7 +59,7 @@ double lengthInMeters(int sagenes, int arshins, int vershoks) {
 /// Пользователь задает целое число, большее 100 (например, 3801).
 /// Определить третью цифру справа в этом числе (в данном случае 8).
 int thirdDigit(int number) {
-  //TODO
+  return number ~/ 100 % 10;
 }
 
 /// Простая (2 балла)
@@ -68,7 +69,7 @@ int thirdDigit(int number) {
 /// Определите время поезда в пути в минутах (в данном случае 216).
 int travelMinutes(
     int hoursDepart, int minutesDepart, int hoursArrive, int minutesArrive) {
-  //TODO
+  return (hoursArrive - hoursDepart) * 60 + (minutesArrive - minutesDepart);
 }
 
 /// Простая (2 балла)
@@ -77,7 +78,11 @@ int travelMinutes(
 /// Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
 /// Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
 double accountInThreeYears(int initial, int percent) {
-  //TODO
+  var res = initial.toDouble();
+  for (var i = 0; i < 3; i++) {
+    res += res * percent / 100;
+  }
+  return res;
 }
 
 /// Простая (2 балла)
@@ -85,7 +90,10 @@ double accountInThreeYears(int initial, int percent) {
 /// Пользователь задает целое трехзначное число (например, 478).
 /// Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
 int numberRevert(int number) {
-//TODO
+  final firstPos = number % 10 * 100;
+  final secondPos = number % 100 ~/ 10 * 10;
+  final thirdPos = number ~/ 100;
+  return firstPos + secondPos + thirdPos;
 }
 
 /// Простая (2 балла)
@@ -93,7 +101,11 @@ int numberRevert(int number) {
 /// Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
 /// Определить, счастливое ли заданное число, вернуть true, если это так.
 bool isNumberHappy(int number) {
-  //TODO
+  final firstPos = number ~/ 1000;
+  final secondPos = number ~/ 100 % 10;
+  final thirdPos = number ~/ 10 % 10;
+  final fourthPos = number % 10;
+  return firstPos + secondPos == thirdPos + fourthPos;
 }
 
 /// Простая (2 балла)
@@ -102,7 +114,10 @@ bool isNumberHappy(int number) {
 /// Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
 /// Считать, что ферзи не могут загораживать друг друга.
 bool queenThreatens(int x1, int y1, int x2, int y2) {
-  //TODO
+  final threatOnV = x1 == x2;
+  final threatOnH = y1 == y2;
+  final threatOnD = (x1 - x2).abs() == (y1 - y2).abs();
+  return threatOnV || threatOnH || threatOnD;
 }
 
 /// Простая (2 балла)
@@ -110,5 +125,8 @@ bool queenThreatens(int x1, int y1, int x2, int y2) {
 /// Дан номер месяца (от 1 до 12 включительно) и год (положительный).
 /// Вернуть число дней в этом месяце этого года по григорианскому календарю.
 int daysInMonth(int month, int year) {
-  //TODO
+  final nextMonth = month == 12
+      ? DateTime(year + 1, 1, 1)
+      : DateTime(year, month + 1, 1);
+  return nextMonth.subtract(Duration(days: 1)).day;
 }
