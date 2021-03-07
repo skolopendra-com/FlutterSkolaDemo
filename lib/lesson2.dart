@@ -73,7 +73,17 @@ class Lesson2 {
 /// Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
 /// вернуть строку вида: «21 год», «32 года», «12 лет».
 String ageDescription(int age) {
-  //TODO
+  if (age % 100 >= 11 && age % 100 <= 20) {
+    return age.toString() + " лет";
+  } else {
+    if (age % 10 == 1) {
+      return age.toString() + " год";
+    } else if (age % 10 > 1 && age % 10 <= 4) {
+      return age.toString() + " года";
+    } else {
+      return age.toString() + " лет";
+    }
+  }
 }
 
 /// Простая (2 балла)
@@ -85,7 +95,16 @@ String ageDescription(int age) {
 /// и 3, если угроза есть и от ладьи и от слона.
 /// Считать, что ладья и слон не могут загораживать друг друга.
 int rookOrBishopThreatens(int kingX, kingY, rookX, rookY, bishopX, bishopY) {
-//TODO
+  if ((kingX == rookX || kingY == rookY) &&
+      ((kingX - bishopX).abs() == (kingY - bishopY).abs())) {
+    return 3;
+  } else if (kingX == rookX || kingY == rookY) {
+    return 1;
+  } else if ((kingX - bishopX).abs() == (kingY - bishopY).abs()) {
+    return 2;
+  } else {
+    return 0;
+  }
 }
 
 /// Простая (2 балла)
@@ -95,7 +114,34 @@ int rookOrBishopThreatens(int kingX, kingY, rookX, rookY, bishopX, bishopY) {
 /// прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
 /// Если такой треугольник не существует, вернуть -1.
 int triangleKind(double a, b, c) {
-//TODO
+  double sqrA = a * a;
+  double sqrB = b * b;
+  double sqrC = c * c;
+  if (a + b > c && a + c > b && b + c > a) {
+    if (a >= b && a >= c) {
+      if (sqrA < sqrB + sqrC)
+        return 0;
+      else if (sqrA == sqrB + sqrC)
+        return 1;
+      else
+        return 2;
+    } else if (b >= a && b >= c) {
+      if (sqrB < sqrA + sqrC)
+        return 0;
+      else if (sqrB == sqrA + sqrC)
+        return 1;
+      else
+        return 2;
+    } else {
+      if (sqrC < sqrA + sqrA)
+        return 0;
+      else if (sqrC == sqrA + sqrA)
+        return 1;
+      else
+        return 2;
+    }
+  } else
+    return -1;
 }
 
 /// Простая (2 балла)
@@ -105,7 +151,16 @@ int triangleKind(double a, b, c) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int digitNumber(int n) {
-//TODO
+  int count = 0;
+  if (n == 0)
+    return 1;
+  else {
+    while (n != 0) {
+      n = n ~/ 10;
+      count++;
+    }
+    return count;
+  }
 }
 
 /// Простая (2 балла)
@@ -113,7 +168,11 @@ int digitNumber(int n) {
 /// Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
 /// Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
 int fib(int n) {
-//TODO
+  if (n == 1 || n == 2) {
+    return 1;
+  } else {
+    return fib(n - 1) + fib(n - 2);
+  }
 }
 
 /// Средняя (3 балла)
@@ -121,7 +180,14 @@ int fib(int n) {
 /// Для заданных чисел m и n найти наименьшее общее кратное, то есть,
 /// минимальное число k, которое делится и на m и на n без остатка
 int lcm(int m, n) {
-//TODO
+  int subRes = m * n;
+  while (m != 0 && n != 0) {
+    if (m > n)
+      m = m % n;
+    else
+      n = n % m;
+  }
+  return subRes ~/ (m + n);
 }
 
 /// Средняя (3 балла)
@@ -130,7 +196,17 @@ int lcm(int m, n) {
 /// Взаимно простые числа не имеют общих делителей, кроме 1.
 /// Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
 bool isCoPrime(int m, n) {
-//TODO
+  while (m != 0 && n != 0) {
+    if (m > n)
+      m = m % n;
+    else
+      n = n % m;
+  }
+
+  if (m + n == 1)
+    return true;
+  else
+    return false;
 }
 
 /// Средняя (3 балла)
@@ -139,7 +215,23 @@ bool isCoPrime(int m, n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int revert(int n) {
-//TODO
+  int dec = 1;
+  int newNum = 0;
+  int c;
+  List<int> digits = List();
+  while (n != 0) {
+    c = n % 10;
+    n = n ~/ 10;
+    digits.add(c);
+    dec *= 10;
+  }
+
+  for (var i = 0; i < digits.length; i++) {
+    dec ~/= 10;
+    newNum += digits[i] * dec;
+  }
+
+  return newNum;
 }
 
 /// Средняя (3 балла)
@@ -150,7 +242,18 @@ int revert(int n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 bool isPalindrome(int n) {
-//TODO
+  int c;
+  List<int> digits = List();
+  while (n != 0) {
+    c = n % 10;
+    n ~/= 10;
+    digits.add(c);
+  }
+
+  for (var i = 0; i < digits.length ~/ 2; i++) {
+    if (digits[i] != digits[digits.length - 1 - i]) return false;
+  }
+  return true;
 }
 
 /// Сложная (4 балла)
@@ -161,7 +264,19 @@ bool isPalindrome(int n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int squareSequenceDigit(int n) {
-//TODO
+  int sqrNum = 0;
+  int i = 1;
+  while (n > 0) {
+    sqrNum = i * i;
+    n -= digitNumber(sqrNum);
+    i++;
+  }
+  while (n < 0) {
+    sqrNum ~/= 10;
+    n++;
+  }
+
+  return sqrNum % 10;
 }
 
 /// Сложная (5 баллов)
@@ -172,5 +287,16 @@ int squareSequenceDigit(int n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int fibSequenceDigit(int n) {
-//TODO
+  var i = 1;
+  var fibo;
+  while (n > 0) {
+    fibo = fib(i);
+    n -= digitNumber(fibo);
+    i++;
+  }
+  while (n < 0) {
+    fibo ~/= 10;
+    n++;
+  }
+  return fibo % 10;
 }
