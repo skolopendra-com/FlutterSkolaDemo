@@ -9,6 +9,8 @@ import 'package:main/lesson1.dart';
 /// Если вы хотите вызвать функцию с задание из урока введите ее название.
 /// Например:
 /// thirdDigit(4242)
-void main(List<String> arguments) {
-  print('Hello from lesson 1 example ${Lesson1().sqr(42)}');
-}
+// void main() {
+//  print (numberRevert(100, 10));
+//
+// }
+

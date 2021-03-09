@@ -30,6 +30,8 @@ class Lesson1 {
     var x2 = (-b - sd) / (2 * a);
     return x1 * x2; // Результат
   }
+
+
 }
 
 ///ЗАДАНИЯ:
@@ -41,7 +43,9 @@ class Lesson1 {
 /// Пользователь задает время в часах, минутах и секундах, например, 8:20:35.
 /// Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
 int seconds(int hours, int minutes, int seconds) {
-  //TODO
+  var h1 = hours * 3600;
+  var m1 = minutes * 60;
+  return h1 + m1 + seconds;
 }
 
 /// Тривиальная (1 балл)
@@ -50,7 +54,7 @@ int seconds(int hours, int minutes, int seconds) {
 /// Определить длину того же отрезка в метрах (в данном случае 18.98).
 /// 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
 double lengthInMeters(int sagenes, int arshins, int vershoks) {
-  //TODO
+  return (sagenes * 2.133) + (arshins * 0.711) + (vershoks * 0.044);
 }
 
 /// Простая (2 балла)
@@ -58,17 +62,17 @@ double lengthInMeters(int sagenes, int arshins, int vershoks) {
 /// Пользователь задает целое число, большее 100 (например, 3801).
 /// Определить третью цифру справа в этом числе (в данном случае 8).
 int thirdDigit(int number) {
-  //TODO
-}
 
+}
 /// Простая (2 балла)
 ///
 /// Поезд вышел со станции отправления в h1 часов m1 минут (например в 9:25) и
 /// прибыл на станцию назначения в h2 часов m2 минут того же дня (например в 13:01).
 /// Определите время поезда в пути в минутах (в данном случае 216).
-int travelMinutes(
-    int hoursDepart, int minutesDepart, int hoursArrive, int minutesArrive) {
-  //TODO
+int travelMinutes(int hoursDepart, int minutesDepart, int hoursArrive, int minutesArrive) {
+  var h1 = hoursDepart * 60 + minutesDepart;
+  var h2 = hoursArrive * 60 + minutesArrive;
+  return h2 - h1;
 }
 
 /// Простая (2 балла)
@@ -77,7 +81,8 @@ int travelMinutes(
 /// Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
 /// Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
 double accountInThreeYears(int initial, int percent) {
-  //TODO
+  var SUM = initial * 1.1 * 1.1 * 1.1;
+  return SUM;
 }
 
 /// Простая (2 балла)
@@ -85,7 +90,7 @@ double accountInThreeYears(int initial, int percent) {
 /// Пользователь задает целое трехзначное число (например, 478).
 /// Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
 int numberRevert(int number) {
-//TODO
+
 }
 
 /// Простая (2 балла)
