@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'lesson1.dart';
 
 /// Урок 2: ветвления и циклы
@@ -73,7 +72,24 @@ class Lesson2 {
 /// Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
 /// вернуть строку вида: «21 год», «32 года», «12 лет».
 String ageDescription(int age) {
-  //TODO
+  if (age % 100 == 11) {
+    return "$age лет";
+  } else if (age % 100 == 12) {
+    return "$age лет";
+  } else if (age % 100 == 13) {
+    return "$age лет";
+  } else if (age % 100 == 14) {
+    return "$age лет";
+  } else if (age % 10 == 1) {
+    return "$age год";
+  } else if (age % 10 == 2) {
+    return "$age года";
+  } else if (age % 10 == 3) {
+    return "$age года";
+  } else if (age % 10 == 4) {
+    return "$age года";
+  } else
+    return "$age лет";
 }
 
 /// Простая (2 балла)
@@ -85,7 +101,23 @@ String ageDescription(int age) {
 /// и 3, если угроза есть и от ладьи и от слона.
 /// Считать, что ладья и слон не могут загораживать друг друга.
 int rookOrBishopThreatens(int kingX, kingY, rookX, rookY, bishopX, bishopY) {
-//TODO
+  Function rookAttack = () => kingX == rookX || kingY == rookY; //ладья
+  Function bishopAttack =
+      () => (kingX - bishopX).abs() == (kingY - bishopY).abs(); //слон
+
+  if (rookX != bishopX &&
+      rookY != bishopY &&
+      rookAttack() == true &&
+      bishopAttack() == true) {
+    return 3;
+  }
+  if (rookAttack()) {
+    return 1;
+  } else if (bishopAttack()) {
+    return 2;
+  } else if (rookAttack() == false && bishopAttack() == false) {
+    return 0;
+  }
 }
 
 /// Простая (2 балла)
@@ -95,7 +127,18 @@ int rookOrBishopThreatens(int kingX, kingY, rookX, rookY, bishopX, bishopY) {
 /// прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
 /// Если такой треугольник не существует, вернуть -1.
 int triangleKind(double a, b, c) {
-//TODO
+  Function sqr = (var v) => v * v;
+  if (a <= 0 || b <= 0 || c <= 0 || c > a + b || a > b + c || b > a + c) {
+    return -1;
+  } else if (sqr(a) + sqr(b) == c) {
+    return 1;
+  } else if (sqr(a) + sqr(b) > sqr(c) &&
+      sqr(a) + sqr(c) > sqr(b) &&
+      sqr(c) + sqr(b) > sqr(a)) {
+    return 0;
+  } else {
+    return 2;
+  }
 }
 
 /// Простая (2 балла)
@@ -105,7 +148,12 @@ int triangleKind(double a, b, c) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int digitNumber(int n) {
-//TODO
+  var count = 0;
+  do {
+    count++;
+    n = (n / 10).truncate();
+  } while (n >= 1);
+  return count;
 }
 
 /// Простая (2 балла)
@@ -113,7 +161,9 @@ int digitNumber(int n) {
 /// Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
 /// Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
 int fib(int n) {
-//TODO
+  if (n == 0) return 0;
+  if (n == 1) return 1;
+  return fib(n - 2) + fib(n - 1);
 }
 
 /// Средняя (3 балла)
@@ -121,7 +171,10 @@ int fib(int n) {
 /// Для заданных чисел m и n найти наименьшее общее кратное, то есть,
 /// минимальное число k, которое делится и на m и на n без остатка
 int lcm(int m, n) {
-//TODO
+  if ((m == 0) || (n == 0)) {
+    return 0;
+  }
+  return ((m / m.gcd(n)).truncate() * n).abs();
 }
 
 /// Средняя (3 балла)
@@ -130,7 +183,11 @@ int lcm(int m, n) {
 /// Взаимно простые числа не имеют общих делителей, кроме 1.
 /// Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
 bool isCoPrime(int m, n) {
-//TODO
+  for (var temp = m; n != 0; n = temp % m) {
+    m = n;
+    n = temp % n;
+    return m == 1;
+  }
 }
 
 /// Средняя (3 балла)
@@ -139,7 +196,13 @@ bool isCoPrime(int m, n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int revert(int n) {
-//TODO
+  if (n < 10) return n;
+  var num = 0;
+  do {
+    num = num * 10 + n % 10;
+    n = (n / 10).truncate();
+  } while (n >= 1);
+  return num;
 }
 
 /// Средняя (3 балла)
@@ -150,7 +213,13 @@ int revert(int n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 bool isPalindrome(int n) {
-//TODO
+  while (n > 9) {
+    final a = (n / pow(10, digitNumber(n)).truncate() - 1);
+    final b = n % 10;
+    if (a != b) return false;
+    n = (n / 10).truncate() % pow(10, digitNumber(n) - 2);
+  }
+  return true;
 }
 
 /// Сложная (4 балла)
