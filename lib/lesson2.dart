@@ -73,6 +73,9 @@ class Lesson2 {
 /// Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
 /// вернуть строку вида: «21 год», «32 года», «12 лет».
 String ageDescription(int age) {
+  //Проверка условия 0 < n < 200
+  assert(age > 0 && age < 200);
+
   if (age % 100 >= 11 && age % 100 <= 20) {
     return age.toString() + " лет";
   } else {
@@ -114,10 +117,15 @@ int rookOrBishopThreatens(int kingX, kingY, rookX, rookY, bishopX, bishopY) {
 /// прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
 /// Если такой треугольник не существует, вернуть -1.
 int triangleKind(double a, b, c) {
+  //Квадраты сторон треугольника
   double sqrA = a * a;
   double sqrB = b * b;
   double sqrC = c * c;
+
+  //Проверка на существование треугольника с заданными сторонами
   if (a + b > c && a + c > b && b + c > a) {
+    //Находим большую сторону из заданных, в зависимости от этого
+    //берем соответсвующее равенство
     if (a >= b && a >= c) {
       if (sqrA < sqrB + sqrC)
         return 0;
@@ -151,6 +159,9 @@ int triangleKind(double a, b, c) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int digitNumber(int n) {
+  assert(n > 0);
+
+  //количество цифр
   int count = 0;
   if (n == 0)
     return 1;
@@ -168,6 +179,8 @@ int digitNumber(int n) {
 /// Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
 /// Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
 int fib(int n) {
+  assert(n > 0);
+
   if (n == 1 || n == 2) {
     return 1;
   } else {
@@ -187,6 +200,8 @@ int lcm(int m, n) {
     else
       n = n % m;
   }
+
+  //Произведение / НОД
   return subRes ~/ (m + n);
 }
 
@@ -215,9 +230,13 @@ bool isCoPrime(int m, n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int revert(int n) {
+  //порядок цифры в числе : 1,10,100 и тд
   int dec = 1;
+  //перевернутое число
   int newNum = 0;
+  //цифра
   int c;
+  //список цифр
   List<int> digits = List();
   while (n != 0) {
     c = n % 10;
@@ -242,14 +261,20 @@ int revert(int n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 bool isPalindrome(int n) {
+  assert(n > 0);
+  //цифра
   int c;
+  //список цифр
   List<int> digits = List();
+
+  //делим число на цифры и записываем их в список
   while (n != 0) {
     c = n % 10;
     n ~/= 10;
     digits.add(c);
   }
 
+  //сравниваем цифры из первой половины списка с цифрами из второй
   for (var i = 0; i < digits.length ~/ 2; i++) {
     if (digits[i] != digits[digits.length - 1 - i]) return false;
   }
@@ -264,7 +289,9 @@ bool isPalindrome(int n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int squareSequenceDigit(int n) {
+  //квадрат позиции числа в последовательности
   int sqrNum = 0;
+  //исходная позиция - 1
   int i = 1;
   while (n > 0) {
     sqrNum = i * i;
