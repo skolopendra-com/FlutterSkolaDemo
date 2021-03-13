@@ -70,8 +70,8 @@ void main() {
   });
 
   test('3 points, center', () {
-    expect(center([]), 0.0);
-    expect(center([3.14]), [1.0, -1.0, 0.0]);
+    expect(center([]), []);
+    expect(center([3.14]), [0.0]);
     expect(center([3.0, 1.0, 2.0]), [1.0, -1.0, 0.0]);
     expect(center([0.0, 2.0, 7.0, 8.0, -2.0]), [-3.0, -1.0, 4.0, 5.0, -5.0]);
   });
@@ -79,7 +79,7 @@ void main() {
   test('3 points, accumulate', () {
     expect(accumulate([]), []);
     expect(accumulate([3]), [3]);
-    expect(accumulate([-3, -1, 4, 5, -5]), [1, 3, 6, 10]);
+    expect(accumulate([1, 2, 3, 4]), [1, 3, 6, 10]);
   });
 
   test('4 points, factorizeToString', () {
@@ -120,17 +120,23 @@ void main() {
     expect(averageStockPrice([]), {});
     expect(
         averageStockPrice([
-          {'MSFT': 100.0, 'NFLX': 40.0}
+          {'MSFT': 100.0},
+          {'NFLX': 40.0}
         ]),
         {'MSFT': 100.0, 'NFLX': 40.0});
     expect(
         averageStockPrice([
-          {'MSFT': 100.0, 'MSFT': 200.0, 'NFLX': 40.0}
+          {'MSFT': 100.0},
+          {'MSFT': 200.0},
+          {'NFLX': 40.0}
         ]),
         {'MSFT': 150.0, 'NFLX': 40.0});
     expect(
         averageStockPrice([
-          {'MSFT': 100.0, 'MSFT': 200.0, 'NFLX': 40.0, 'NFLX': 50.0}
+          {'MSFT': 100.0},
+          {'MSFT': 200.0},
+          {'NFLX': 40.0},
+          {'NFLX': 50.0}
         ]),
         {'MSFT': 150.0, 'NFLX': 45.0});
   });
@@ -150,7 +156,7 @@ void main() {
         {
           'Marat': {'Mikhail', "Sveta"},
           'Sveta': {'Mikhail'},
-          'Marat': {},
+          'Marat': [],
         });
 
     expect(

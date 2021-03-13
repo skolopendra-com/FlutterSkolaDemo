@@ -7,7 +7,6 @@ import 'dart:math';
 /// Рекомендуемое количество баллов = 21
 class Lesson3 {
   ///ПРИМЕРЫ:
-
   /// Найти все корни уравнения x^2 = y
   List<double> sqRoots(double y) {
     if (y < 0) {
@@ -103,12 +102,17 @@ class Lesson3 {
 }
 
 ///ЗАДАНИЯ:
-
 /// Простая (2 балла)
 ///
 /// Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
 double mean(List<double> list) {
-  //TODO
+  //Делаем проверку на наличие элементов в списке
+  if (list.isEmpty) {
+    return 0.0;
+  } else {
+    double sum = list.reduce((a, b) => a + b);
+    return sum / list.length;
+  }
 }
 
 /// Средняя (3 балла)
@@ -116,7 +120,20 @@ double mean(List<double> list) {
 /// Центрировать заданный список list, уменьшив каждый элемент на среднее арифметическое всех элементов.
 /// Если список пуст, не делать ничего. Вернуть изменённый список.
 List<double> center(List<double> list) {
-  //TODO
+  List<double> newList = [];
+
+  //Делаем проверку на наличие элементов в списке
+  if (list.isEmpty)
+    return [];
+  else {
+    for (var elem in list) {
+      //Используем ф-цию mean() из предыдущего задания для подсчета ср. арифм.
+      elem -= mean(list);
+      newList.add(elem);
+    }
+    print(list);
+    return newList;
+  }
 }
 
 /// Средняя (3 балла)
@@ -126,7 +143,30 @@ List<double> center(List<double> list) {
 /// Например: 1, 2, 3, 4 -> 1, 3, 6, 10.
 /// Пустой список не следует изменять. Вернуть изменённый список.
 List<int> accumulate(List<int> list) {
-  //TODO
+  //Делаем проверку на наличие элементов в списке
+
+  if (list.isEmpty)
+    return [];
+  else {
+    //newList - результирующий список
+    //sumList - равен list (повторяет все его изменения), но с элементами в обратном порядке
+    List<int> newList = [];
+    List<int> sumList = [];
+
+    int sum;
+    //Конечная длина исходного списка - фиксированная величина
+    final length = list.length;
+
+    for (var i = 0; i < length; i++) {
+      sumList = list;
+      sumList.reversed.toList();
+      sum = sumList.reduce((a, b) => a + b);
+      list.removeLast();
+      newList.add(sum);
+    }
+
+    return newList.reversed.toList();
+  }
 }
 
 /// Сложная (4 балла)
@@ -135,7 +175,22 @@ List<int> accumulate(List<int> list) {
 /// Результат разложения вернуть в виде строки, например 75 -> 3*5*5
 /// Множители в результирующей строке должны располагаться по возрастанию.
 String factorizeToString(int n) {
-  //TODO
+  //Проверка условия n > 1
+
+  if (n > 1) {
+    int div = 2;
+    List<int> multipliers = [];
+    while (n > 1) {
+      while (n % div == 0) {
+        multipliers.add(div);
+        n ~/= div;
+      }
+      div++;
+    }
+    return multipliers.join('*');
+  } else {
+    return "No multipliers";
+  }
 }
 
 /// Сложная (5 баллов)
@@ -145,7 +200,37 @@ String factorizeToString(int n) {
 /// 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
 /// Например: 23 = XXIII, 44 = XLIV, 100 = C
 String roman(int n) {
-  //TODO
+  if (n > 0) {
+    List<String> rims = [
+      'M',
+      'CM',
+      'D',
+      'CD',
+      'C',
+      'XC',
+      'L',
+      'XL',
+      'X',
+      'IX',
+      'V',
+      'IV',
+      'I'
+    ];
+    List<int> arabs = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+    String arab2Rim = '';
+    int i = 0;
+
+    //Разложение числа на слогаемые (т.е. цифры, эквивалентные римской системе)
+    while (n > 0) {
+      while (arabs[i] <= n) {
+        arab2Rim += rims[i];
+        n -= arabs[i];
+      }
+      i++;
+    }
+    return arab2Rim;
+  } else
+    return 'n < 0';
 }
 
 /// Простая (2 балла)
@@ -153,7 +238,16 @@ String roman(int n) {
 /// Определить, входит ли ассоциативный массив a в ассоциативный массив b;
 /// это выполняется, если все ключи из a содержатся в b с такими же значениями.
 bool containsIn(Map<String, String> a, Map<String, String> b) {
-  //TODO
+  bool answer = true;
+  a.forEach((key, value) {
+    //если в мэпе б есть ключ из мэпа а, тогда будут сравниваться
+    //их значения
+    if (b.containsKey(key)) {
+      if (value != b[key]) answer = false;
+    }
+  });
+
+  return answer;
 }
 
 /// Простая (2 балла)
@@ -162,7 +256,17 @@ bool containsIn(Map<String, String> a, Map<String, String> b) {
 /// которые встречаются в заданном ассоциативном массиве.
 /// Записи считать одинаковыми, если и ключи, и значения совпадают.
 Map<String, String> subtractOf(Map<String, String> a, Map<String, String> b) {
-  //TODO
+  //проверяем пусты ли списки
+  if (!b.isEmpty || !a.isEmpty) {
+    b.forEach((key, value) {
+      if (a.containsKey(key)) {
+        if (a[key] == value) {
+          a.remove(key);
+        }
+      }
+    });
+  }
+  return a;
 }
 
 /// Средняя (4 балла)
@@ -170,7 +274,31 @@ Map<String, String> subtractOf(Map<String, String> a, Map<String, String> b) {
 /// Для заданного списка пар "акция"-"стоимость" вернуть ассоциативный массив,
 /// содержащий для каждой акции ее усредненную стоимость.
 Map<String, double> averageStockPrice(List<Map<String, double>> stockPrices) {
-  //TODO
+  Map<String, int> stockUniqueCount = {};
+  Map<String, double> stockSum = {};
+  Map<String, double> average = {};
+
+  for (var i = 0; i < stockPrices.length; i++) {
+    stockPrices[i].forEach((key, value) {
+      if (!stockUniqueCount.containsKey(key)) {
+        stockUniqueCount[key] = 1;
+        stockSum[key] = value;
+      } else {
+        stockUniqueCount[key]++;
+        stockSum[key] += value;
+      }
+    });
+  }
+
+  stockUniqueCount.forEach((keyCount, valueCount) {
+    stockSum.forEach((keySum, valueSum) {
+      if (keyCount == keySum) {
+        average[keySum] = valueSum / valueCount;
+      }
+    });
+  });
+
+  return average;
 }
 
 /// Средняя (4 балла)
@@ -181,7 +309,26 @@ Map<String, double> averageStockPrice(List<Map<String, double>> stockPrices) {
 /// Если элемент встречается только один раз, включать его в результат
 /// не следует.
 Map<String, int> extractRepeats(List<String> list) {
-  //TODO
+  List<String> unique = list.toSet().toList();
+  Map<String, int> repeats = {};
+
+  //Если входной список пуст, то сразу возвращаем пустой map
+  if (list.isEmpty) {
+    return {};
+  } else {
+    int count = 0;
+    unique.forEach((element) {
+      for (var i = 0; i < list.length; i++) {
+        if (element == list[i]) count++;
+      }
+      //Если элемент встречается только один раз или не встречается вовсе,
+      //то он в список не добавляется
+      if (count > 1) repeats[element] = count;
+      count = 0;
+    });
+
+    return repeats;
+  }
 }
 
 /// Сложная (5 баллов)
@@ -217,7 +364,54 @@ Map<String, int> extractRepeats(List<String> list) {
 ///          "GoodGnome" : []
 ///        }
 Map<String, Set<String>> propagateHandshakes(Map<String, Set<String>> friends) {
-  //TODO
+  //Непонятно со вторым тестом 'Friend' : {'GoodGnome'}
+  //Friend должен заноситься в результирующий список с пустым сетом,
+  //т.к. его нет в знакомых среди остальных ключей,
+  //однако этого не происходит...
+
+  Map<String, Set<String>> friends2 = friends;
+  Set<String> names = {};
+  List<String> keys = friends.keys.toList();
+  Map<String, Set<String>> unknown = {};
+  // Map<String, Set<String>> known = {};
+
+  friends.forEach((key, value) {
+    value.forEach((element) {
+      if (friends2.containsKey(element)) {
+        friends2[element].forEach((name) {
+          if (name != key) names.add(name);
+        });
+      }
+    });
+    value.addAll(names);
+    names = {};
+  });
+  int count = 0;
+  int knownCount = 0;
+  bool knownBool = false;
+  for (var i = 0; i < keys.length; i++) {
+    count = 0;
+    knownCount = 0;
+    friends.forEach((key, value) {
+      for (var match in value) {
+        if (match == keys[i]) {
+          count++;
+        }
+        knownCount++;
+      }
+      if (knownCount == value.length && !knownBool) {
+        knownBool = true;
+      }
+    });
+
+    if (count == 0) unknown[keys[i]] = {};
+  }
+
+  print('unknown - ${unknown}');
+
+  friends.addAll(unknown);
+
+  return friends;
 }
 
 /// Очень сложная (8 баллов)
