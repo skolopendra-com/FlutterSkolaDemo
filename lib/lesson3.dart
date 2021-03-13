@@ -108,7 +108,15 @@ class Lesson3 {
 ///
 /// Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
 double mean(List<double> list) {
-  //TODO
+  double numOfList = 0;
+  if (list.isEmpty) {
+    return 0.0;
+  } else {
+    list.forEach((element) {
+      numOfList += element;
+    });
+  }
+  return numOfList / list.length;
 }
 
 /// Средняя (3 балла)
@@ -116,7 +124,12 @@ double mean(List<double> list) {
 /// Центрировать заданный список list, уменьшив каждый элемент на среднее арифметическое всех элементов.
 /// Если список пуст, не делать ничего. Вернуть изменённый список.
 List<double> center(List<double> list) {
-  //TODO
+  if (list.isEmpty) {
+    return list;
+  } else {
+    final average = mean(list);
+    return list.map((e) => e - average).toList();
+  }
 }
 
 /// Средняя (3 балла)
@@ -126,7 +139,15 @@ List<double> center(List<double> list) {
 /// Например: 1, 2, 3, 4 -> 1, 3, 6, 10.
 /// Пустой список не следует изменять. Вернуть изменённый список.
 List<int> accumulate(List<int> list) {
-  //TODO
+  if (list.isEmpty) {
+    return list;
+  } else {
+    List<int> newLst = [];
+    for (int i = 0; i < list.length; i++) {
+      newLst.add(list.take(i + 1).fold(0, (prev, cur) => prev + cur));
+    }
+    return newLst;
+  }
 }
 
 /// Сложная (4 балла)
@@ -135,7 +156,20 @@ List<int> accumulate(List<int> list) {
 /// Результат разложения вернуть в виде строки, например 75 -> 3*5*5
 /// Множители в результирующей строке должны располагаться по возрастанию.
 String factorizeToString(int n) {
-  //TODO
+  if (n < 2) {
+    return n.toString();
+  }
+  List<int> numbers = [];
+  int simple = 2;
+  while (n > 1) {
+    if (n % simple == 0) {
+      numbers.add(simple);
+      n = n ~/ simple;
+    } else {
+      simple++;
+    }
+  }
+  return numbers.toString();
 }
 
 /// Сложная (5 баллов)
@@ -152,9 +186,7 @@ String roman(int n) {
 ///
 /// Определить, входит ли ассоциативный массив a в ассоциативный массив b;
 /// это выполняется, если все ключи из a содержатся в b с такими же значениями.
-bool containsIn(Map<String, String> a, Map<String, String> b) {
-  //TODO
-}
+bool containsIn(Map<String, String> a, Map<String, String> b) {}
 
 /// Простая (2 балла)
 ///
@@ -162,16 +194,19 @@ bool containsIn(Map<String, String> a, Map<String, String> b) {
 /// которые встречаются в заданном ассоциативном массиве.
 /// Записи считать одинаковыми, если и ключи, и значения совпадают.
 Map<String, String> subtractOf(Map<String, String> a, Map<String, String> b) {
-  //TODO
+  if (a.isEmpty && b.isEmpty) {
+    return a;
+  } else {
+    a.removeWhere((key, value) => b.containsKey(key) && b.containsValue(value));
+    return a;
+  }
 }
 
 /// Средняя (4 балла)
 ///
 /// Для заданного списка пар "акция"-"стоимость" вернуть ассоциативный массив,
 /// содержащий для каждой акции ее усредненную стоимость.
-Map<String, double> averageStockPrice(List<Map<String, double>> stockPrices) {
-  //TODO
-}
+Map<String, double> averageStockPrice(List<Map<String, double>> stockPrices) {}
 
 /// Средняя (4 балла)
 ///
@@ -181,7 +216,23 @@ Map<String, double> averageStockPrice(List<Map<String, double>> stockPrices) {
 /// Если элемент встречается только один раз, включать его в результат
 /// не следует.
 Map<String, int> extractRepeats(List<String> list) {
-  //TODO
+  Map<String, int> myMap = {};
+  int count = 0;
+
+  for (int i = 0; i < list.length; i++) {
+    if (myMap.containsKey(list[i])) {
+      continue;
+    } else {
+      for (int j = 0; j < list.length; j++) {
+        if (list[i] == list[j]) {
+          count++;
+          myMap[list[i]] = count;
+        }
+      }
+      count = 0;
+    }
+  }
+  return myMap;
 }
 
 /// Сложная (5 баллов)
