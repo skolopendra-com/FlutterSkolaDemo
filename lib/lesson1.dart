@@ -54,7 +54,7 @@ double lengthInMeters(int sagenes, int arshins, int vershoks) {
   double arshRes = arshins * 0.7112;
   double sagRes = sagenes * 2.1336;
   double result = vershRes + arshRes + sagRes;
-  return num.parse(result.toStringAsFixed(2));
+  return result;
 }
 
 /// Простая (2 балла)
@@ -62,7 +62,11 @@ double lengthInMeters(int sagenes, int arshins, int vershoks) {
 /// Пользователь задает целое число, большее 100 (например, 3801).
 /// Определить третью цифру справа в этом числе (в данном случае 8).
 int thirdDigit(int number) {
+  //Проверка: number > 100
+  assert(number > 100);
+  //Последние три цифры справа
   int left = number % 1000;
+  //3 цифра справа
   int numberRes = left ~/ 100;
   return numberRes;
 }
@@ -83,9 +87,11 @@ int travelMinutes(
 /// Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
 /// Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
 double accountInThreeYears(int initial, int percent) {
+  //Годовой процентный коэффициент
   double p = percent / 100 + 1;
+
   double tripleP = p * p * p;
-  return num.parse((initial * tripleP).toStringAsFixed(1));
+  return initial * tripleP;
 }
 
 /// Простая (2 балла)
@@ -93,6 +99,8 @@ double accountInThreeYears(int initial, int percent) {
 /// Пользователь задает целое трехзначное число (например, 478).
 /// Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
 int numberRevert(int number) {
+  //Проверка на трехзначность
+  assert(number >= 100);
   int firstNum = number ~/ 100;
   int secondNum = number % 100 ~/ 10;
   int thirdNum = number % 10;
@@ -105,11 +113,15 @@ int numberRevert(int number) {
 /// Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
 /// Определить, счастливое ли заданное число, вернуть true, если это так.
 bool isNumberHappy(int number) {
+  //Проверка на четырехзначность
+  assert(number >= 1000);
+
   int firstNum = number ~/ 1000;
   int secondNum = number % 1000 ~/ 100;
   int thirdNum = number % 100 ~/ 10;
   int fourthNum = number % 10;
 
+  //Если сумма первых двух цифр равна сумме двух последних, число счастливое (true)
   if (firstNum + secondNum == thirdNum + fourthNum) {
     return true;
   } else {
@@ -135,6 +147,11 @@ bool queenThreatens(int x1, int y1, int x2, int y2) {
 /// Дан номер месяца (от 1 до 12 включительно) и год (положительный).
 /// Вернуть число дней в этом месяце этого года по григорианскому календарю.
 int daysInMonth(int month, int year) {
+  //Проверка месяца на правильное значение
+  assert(month >= 1 && month <= 12);
+  //Провяем, положительный ли год
+  assert(year > 0);
+
   if (month == 2) {
     final bool isLeapYear =
         (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
