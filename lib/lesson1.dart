@@ -41,6 +41,15 @@ class Lesson1 {
 /// Пользователь задает время в часах, минутах и секундах, например, 8:20:35.
 /// Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
 int seconds(int hours, int minutes, int seconds) {
+  if (hours == null || minutes == null || seconds == null) {
+    throw InputValueIsNullException('Input value is null, but not-null value expected');
+  }
+  final hoursOutOfRange = hours < 0 || hours > 24;
+  final minutesOutOfRange = minutes < 0 || minutes > 60;
+  final secondsOutOfRange = seconds < 0 || seconds > 60;
+  if (hoursOutOfRange || minutesOutOfRange || secondsOutOfRange) {
+    throw NumberIsOutOfRangeException('Input value is out of range');
+  }
   return hours * 3600 + minutes * 60 + seconds;
 }
 
@@ -50,6 +59,7 @@ int seconds(int hours, int minutes, int seconds) {
 /// Определить длину того же отрезка в метрах (в данном случае 18.98).
 /// 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
 double lengthInMeters(int sagenes, int arshins, int vershoks) {
+  defaultChecker([sagenes, arshins, vershoks]);
   final totalVershkov = sagenes * 48 + arshins * 16 + vershoks;
   return double.parse((totalVershkov * 4.445 / 100).toStringAsFixed(2));
 }
@@ -59,6 +69,7 @@ double lengthInMeters(int sagenes, int arshins, int vershoks) {
 /// Пользователь задает целое число, большее 100 (например, 3801).
 /// Определить третью цифру справа в этом числе (в данном случае 8).
 int thirdDigit(int number) {
+  defaultChecker([number]);
   return number ~/ 100 % 10;
 }
 
@@ -69,6 +80,19 @@ int thirdDigit(int number) {
 /// Определите время поезда в пути в минутах (в данном случае 216).
 int travelMinutes(
     int hoursDepart, int minutesDepart, int hoursArrive, int minutesArrive) {
+  if (hoursDepart == null || minutesDepart == null || hoursArrive == null || minutesArrive == null) {
+    throw InputValueIsNullException('Input value is null, but not-null value expected');
+  }
+  final hoursDepartOutOfRange = hoursDepart < 0 || hoursDepart > 24;
+  final hoursArriveOutOfRange = hoursArrive < 0 || hoursArrive > 24;
+  final minutesDepartOutOfRange = minutesDepart < 0 || minutesDepart > 60;
+  final minutesArriveOutOfRange = minutesArrive < 0 || minutesArrive > 60;
+  if (hoursDepartOutOfRange || hoursArriveOutOfRange || minutesDepartOutOfRange || minutesArriveOutOfRange) {
+    throw NumberIsOutOfRangeException('Input value is out of range');
+  }
+  if (hoursDepart > hoursArrive || hoursArrive == hoursDepart && minutesDepart > minutesArrive) {
+    throw WrongInputStateException('Input values are in a wrong state');
+  }
   return (hoursArrive - hoursDepart) * 60 + (minutesArrive - minutesDepart);
 }
 
@@ -78,11 +102,13 @@ int travelMinutes(
 /// Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
 /// Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
 double accountInThreeYears(int initial, int percent) {
-  var res = initial.toDouble();
+  defaultChecker([initial, percent]);
+  var accountForCurrentIter = initial.toDouble();
+  final percentForm = percent / 100;
   for (var i = 0; i < 3; i++) {
-    res += res * percent / 100;
+    accountForCurrentIter += accountForCurrentIter * percentForm;
   }
-  return res;
+  return accountForCurrentIter;
 }
 
 /// Простая (2 балла)
@@ -90,6 +116,12 @@ double accountInThreeYears(int initial, int percent) {
 /// Пользователь задает целое трехзначное число (например, 478).
 /// Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
 int numberRevert(int number) {
+  if (number == null) {
+    throw InputValueIsNullException('Input value is null, but not-null value expected');
+  }
+  if (number < 100 || number > 999) {
+    throw NumberIsOutOfRangeException('Input value is out of range');
+  }
   final firstPos = number % 10 * 100;
   final secondPos = number % 100 ~/ 10 * 10;
   final thirdPos = number ~/ 100;
@@ -101,6 +133,12 @@ int numberRevert(int number) {
 /// Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
 /// Определить, счастливое ли заданное число, вернуть true, если это так.
 bool isNumberHappy(int number) {
+  if (number == null) {
+    throw InputValueIsNullException('Input value is null, but not-null value expected');
+  }
+  if (number < 1000 || number > 9999) {
+    throw NumberIsOutOfRangeException('Input value is out of range');
+  }
   final firstPos = number ~/ 1000;
   final secondPos = number ~/ 100 % 10;
   final thirdPos = number ~/ 10 % 10;
@@ -114,10 +152,13 @@ bool isNumberHappy(int number) {
 /// Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
 /// Считать, что ферзи не могут загораживать друг друга.
 bool queenThreatens(int x1, int y1, int x2, int y2) {
-  final threatOnV = x1 == x2;
-  final threatOnH = y1 == y2;
-  final threatOnD = (x1 - x2).abs() == (y1 - y2).abs();
-  return threatOnV || threatOnH || threatOnD;
+  if (x1 == null || x2 == null || y1 == null || y2 == null) {
+    throw InputValueIsNullException('Input value is null, but not-null value expected');
+  }
+  final verticalThreat = x1 == x2;
+  final horizontalThreat = y1 == y2;
+  final diagonalThreat = (x1 - x2).abs() == (y1 - y2).abs();
+  return verticalThreat || horizontalThreat || diagonalThreat;
 }
 
 /// Простая (2 балла)
@@ -125,8 +166,42 @@ bool queenThreatens(int x1, int y1, int x2, int y2) {
 /// Дан номер месяца (от 1 до 12 включительно) и год (положительный).
 /// Вернуть число дней в этом месяце этого года по григорианскому календарю.
 int daysInMonth(int month, int year) {
+  if (month == null || year == null) {
+    throw InputValueIsNullException('Input value is null, but not-null value expected');
+  }
+  if (year < 0 || month < 0 || month > 12) {
+    throw NumberIsOutOfRangeException('Input value is out of range');
+  }
   final nextMonth = month == 12
       ? DateTime(year + 1, 1, 1)
       : DateTime(year, month + 1, 1);
   return nextMonth.subtract(Duration(days: 1)).day;
+}
+
+// Exceptions
+class NumberIsOutOfRangeException implements Exception {
+  String msg;
+  NumberIsOutOfRangeException(this.msg);
+}
+
+class InputValueIsNullException implements Exception {
+  String msg;
+  InputValueIsNullException(this.msg);
+}
+
+class WrongInputStateException implements Exception {
+  String msg;
+  WrongInputStateException(this.msg);
+}
+
+// utils
+void defaultChecker(List list) {
+  for (var element in list) {
+    if (element == null) {
+      throw InputValueIsNullException('Input value is null, but not-null value expected');
+    }
+    if (element < 0) {
+      throw NumberIsOutOfRangeException('Input value is out of range');
+    }
+  }
 }

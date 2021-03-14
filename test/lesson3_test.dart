@@ -156,7 +156,7 @@ void main() {
         {
           'Marat': {'Mikhail', "Sveta"},
           'Sveta': {'Mikhail'},
-          'Marat': {},
+          'Mikhail': [],
         });
 
     expect(
@@ -172,10 +172,12 @@ void main() {
           'Sveta': {'Marat', 'Mikhail'},
           'Mikhail': {'Sveta', 'Marat'},
           'Friend': {'GoodGnome'},
-          'EvilGnome': {},
-          'GoodGnome': {},
+          'EvilGnome': [],
+          'GoodGnome': [],
         });
   });
+
+  test('', () => true);
 
   test('4 points, bagPacking', () {
     expect(
@@ -189,6 +191,6 @@ void main() {
           'Кубок': {500: 2000},
           'Слиток': {1000: 5000}
         }, 450),
-        {});
+        []);
   });
 }
