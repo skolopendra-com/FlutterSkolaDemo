@@ -364,21 +364,16 @@ Map<String, int> extractRepeats(List<String> list) {
 ///          "GoodGnome" : []
 ///        }
 Map<String, Set<String>> propagateHandshakes(Map<String, Set<String>> friends) {
-  //Непонятно со вторым тестом 'Friend' : {'GoodGnome'}
-  //Friend должен заноситься в результирующий список с пустым сетом,
-  //т.к. его нет в знакомых среди остальных ключей,
-  //однако этого не происходит...
-
-  Map<String, Set<String>> friends2 = friends;
+  //Сет с именами знакомых найденного в списке человека
   Set<String> names = {};
-  List<String> keys = friends.keys.toList();
+  //Мэп с людьми, у которых нет знакомых
   Map<String, Set<String>> unknown = {};
-  // Map<String, Set<String>> known = {};
 
+  //Ищем знакомых знакомых и прибавляем их в текущий список людей
   friends.forEach((key, value) {
     value.forEach((element) {
-      if (friends2.containsKey(element)) {
-        friends2[element].forEach((name) {
+      if (friends.containsKey(element)) {
+        friends[element].forEach((name) {
           if (name != key) names.add(name);
         });
       }
@@ -386,28 +381,16 @@ Map<String, Set<String>> propagateHandshakes(Map<String, Set<String>> friends) {
     value.addAll(names);
     names = {};
   });
-  int count = 0;
-  int knownCount = 0;
-  bool knownBool = false;
-  for (var i = 0; i < keys.length; i++) {
-    count = 0;
-    knownCount = 0;
-    friends.forEach((key, value) {
-      for (var match in value) {
-        if (match == keys[i]) {
-          count++;
-        }
-        knownCount++;
-      }
-      if (knownCount == value.length && !knownBool) {
-        knownBool = true;
+
+  //Ищем тех людей, которые являются знакомыми, но их имен в качестве
+  //ключей нет: т.е. они сами ни с кем не знакомы
+  friends.forEach((key, value) {
+    value.forEach((element) {
+      if (!friends.containsKey(element)) {
+        unknown[element] = {};
       }
     });
-
-    if (count == 0) unknown[keys[i]] = {};
-  }
-
-  print('unknown - ${unknown}');
+  });
 
   friends.addAll(unknown);
 
