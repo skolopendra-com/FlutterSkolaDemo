@@ -169,7 +169,7 @@ String factorizeToString(int n) {
       simple++;
     }
   }
-  return numbers.toString();
+  return numbers.join(' * ');
 }
 
 /// Сложная (5 баллов)
@@ -179,14 +179,51 @@ String factorizeToString(int n) {
 /// 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
 /// Например: 23 = XXIII, 44 = XLIV, 100 = C
 String roman(int n) {
-  //TODO
+  if (n <= 0) {
+    return n.toString();
+  }
+  String result = '';
+  const List<Map<String, int>> romanMap = [
+    {'M': 1000},
+    {'CM': 900},
+    {'D': 500},
+    {'CD': 400},
+    {'C': 100},
+    {'XC': 90},
+    {'L': 50},
+    {'XL': 40},
+    {'X': 10},
+    {'IX': 9},
+    {'V': 5},
+    {'IV': 4},
+    {'I': 1}
+  ];
+  romanMap.forEach((element) {
+    while (n >= element.values.last) {
+      result += element.keys.last;
+      n -= element.values.last;
+    }
+  });
+  return result;
 }
 
 /// Простая (2 балла)
 ///
 /// Определить, входит ли ассоциативный массив a в ассоциативный массив b;
 /// это выполняется, если все ключи из a содержатся в b с такими же значениями.
-bool containsIn(Map<String, String> a, Map<String, String> b) {}
+bool containsIn(Map<String, String> a, Map<String, String> b) {
+  if (a.isEmpty && b.isEmpty) {
+    return false;
+  } else {
+    bool isAssociativeIncluded = false;
+    a.forEach((key, value) {
+      if (b.containsKey(key) && value == b[key]) {
+        isAssociativeIncluded = true;
+      }
+    });
+    return isAssociativeIncluded;
+  }
+}
 
 /// Простая (2 балла)
 ///
@@ -196,17 +233,44 @@ bool containsIn(Map<String, String> a, Map<String, String> b) {}
 Map<String, String> subtractOf(Map<String, String> a, Map<String, String> b) {
   if (a.isEmpty && b.isEmpty) {
     return a;
-  } else {
-    a.removeWhere((key, value) => b.containsKey(key) && b.containsValue(value));
-    return a;
   }
+  a.removeWhere((key, value) => b.containsKey(key) && b.containsValue(value));
+  return a;
 }
 
 /// Средняя (4 балла)
 ///
 /// Для заданного списка пар "акция"-"стоимость" вернуть ассоциативный массив,
 /// содержащий для каждой акции ее усредненную стоимость.
-Map<String, double> averageStockPrice(List<Map<String, double>> stockPrices) {}
+Map<String, double> averageStockPrice(List<Map<String, double>> stockPrices) {
+  Map<String, double> stockPricesMap = {};
+  Map<String, int> counterMap = {};
+  //счетчик множетелей для среднего числа стоимости
+  int count = 1;
+
+  if (stockPrices.isEmpty) {
+    return stockPricesMap;
+  }
+
+  for (int i = 0; i < stockPrices.length; i++) {
+    stockPrices[i].forEach((key, value) {
+      if (stockPricesMap.containsKey(key)) {
+        stockPricesMap[key] += value;
+        count++;
+        counterMap[key] = count;
+      } else {
+        stockPricesMap[key] = value;
+        count = 1;
+      }
+    });
+  }
+  stockPricesMap.forEach((key, value) {
+    if (counterMap.containsKey(key)) {
+      stockPricesMap[key] = value / counterMap[key];
+    }
+  });
+  return stockPricesMap;
+}
 
 /// Средняя (4 балла)
 ///
@@ -226,8 +290,10 @@ Map<String, int> extractRepeats(List<String> list) {
       for (int j = 0; j < list.length; j++) {
         if (list[i] == list[j]) {
           count++;
-          myMap[list[i]] = count;
         }
+      }
+      if (count > 1) {
+        myMap[list[i]] = count;
       }
       count = 0;
     }
@@ -291,5 +357,9 @@ Map<String, Set<String>> propagateHandshakes(Map<String, Set<String>> friends) {
 ///     450
 ///   ) -> []
 Set<String> bagPacking(Map<String, Map<int, int>> treasures, int capacity) {
-  //TODO
+  if (treasures.isEmpty || capacity == 0 ) {
+    return {};
+  }
+  treasures.removeWhere(
+          (key, value) => value.keys.any((element) => element > capacity));
 }
