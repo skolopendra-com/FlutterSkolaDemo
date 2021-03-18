@@ -3,9 +3,7 @@ abstract class Car {
   String name;
 
   //Объем двигателя
-  double get engineVolume {
-    //TODO
-  }
+  double get engineVolume => horsepower * 0.7355;
 
   //Лошадиные силы
   int horsepower;
@@ -31,17 +29,19 @@ abstract class Car {
     this.fuelConsumption,
   );
 
-  bool isFaster(Car otherCar) {
-    //TODO
-  }
+  bool isFaster(Car otherCar) => otherCar.maxSpeed > maxSpeed;
 }
 
 enum CarColor {
-  none,
-  //TODO
+  BLACK,
+  WHITE,
+  RED,
+  GREEN,
+  BLUE,
+  YELLOW
 }
 
 enum Transmission {
-  none,
-  //TODO
+  AUTO,
+  HAND
 }

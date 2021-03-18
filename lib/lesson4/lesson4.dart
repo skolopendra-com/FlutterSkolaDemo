@@ -101,7 +101,11 @@ class Lesson4 {
 /// а второе - его цена
 Map<double, double> fuelCountAndPrice(
     Car car, int routeInMeters, double fuelPricePerLiter) {
-  //TODO
+  // расчет кол-во топнива в метрах
+  var totalFuelConsumption = car.fuelConsumption * routeInMeters / 100.0;
+  var tripPrice = totalFuelConsumption * fuelPricePerLiter;
+
+  return {totalFuelConsumption.roundToDouble(): tripPrice.roundToDouble()};
 }
 
 /// Средняя (2 балла)
@@ -109,5 +113,12 @@ Map<double, double> fuelCountAndPrice(
 /// После создания всех типов машин, перейти в [lesson4_test]
 /// и включить тест [fastestCarAlive]
 Car fastestCarAlive(List<Car> cars) {
-  //TODO
+  var fastCar = cars.first;
+
+  cars.forEach((car) {
+    if (fastCar.isFaster(car)) {
+      fastCar = car;
+    }
+  });
+  return fastCar;
 }

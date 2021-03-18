@@ -6,6 +6,8 @@ import 'package:main/lesson4/animals/mockingbird.dart';
 import 'package:main/lesson4/animals/salmon.dart';
 import 'package:main/lesson4/animals/shark.dart';
 import 'package:main/lesson4/cars/lada.dart';
+import 'package:main/lesson4/cars/reno.dart';
+import 'package:main/lesson4/cars/tesla.dart';
 import 'package:main/lesson4/lesson4.dart';
 import 'package:test/test.dart';
 
@@ -50,9 +52,7 @@ void main() {
   /// Рабочий тест - часть задания
   /// TODO
   test('2 points, fastestCarAlive', () {
-    // var carPark = [
-    //   Tesla(), Lada(), Reno(),
-    // ];
-    // expect(fastestCarAlive(carPark), Tesla());
+    var carPark = [Lada(maxSpeed: 100), Tesla(maxSpeed: 200), Reno(maxSpeed: 167)];
+    expect(fastestCarAlive(carPark), Tesla());
   });
 }
