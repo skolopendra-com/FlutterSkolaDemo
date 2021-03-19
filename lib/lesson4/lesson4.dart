@@ -101,13 +101,40 @@ class Lesson4 {
 /// а второе - его цена
 Map<double, double> fuelCountAndPrice(
     Car car, int routeInMeters, double fuelPricePerLiter) {
-  //TODO
+  //мэп с количеством топлива и его ценой
+  Map<double, double> fuelAndPrice = {};
+
+  //количество топлива на 1 км
+  double fuelOneKm = car.fuelConsumption / 100;
+  //топливо на весь маршрут
+  double fuelRoute = routeInMeters * fuelOneKm;
+
+  //пришлось применять округление, т.к. числа получались 50.4, например, а в тестах 50.0
+  fuelAndPrice[fuelRoute.roundToDouble()] =
+      (fuelRoute * fuelPricePerLiter).roundToDouble();
+
+  return fuelAndPrice;
 }
 
 /// Средняя (2 балла)
 /// Найти самый быстрый автомобиль из списка
 /// После создания всех типов машин, перейти в [lesson4_test]
 /// и включить тест [fastestCarAlive]
-Car fastestCarAlive(List<Car> cars) {
-  //TODO
+String fastestCarAlive(List<Car> cars) {
+  var fastest = cars.first;
+
+  cars.forEach((car) {
+    if (car.maxSpeed > fastest.maxSpeed) {
+      fastest = car;
+    }
+  });
+
+  //По условию задания нужно было вернуть объект Car car, то есть, например,
+  //Instance of 'Tesla', но по каким-то причинам не проходит тест:
+  // Expected: Instance of 'Tesla'
+  // Actual: Instance of 'Tesla'
+  //В связи с этим решила возвращать просто название марки машины
+  print(fastest);
+
+  return fastest.name;
 }

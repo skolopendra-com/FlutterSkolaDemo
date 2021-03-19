@@ -4,7 +4,7 @@ abstract class Car {
 
   //Объем двигателя
   double get engineVolume {
-    //TODO
+    return horsepower * 0.7355;
   }
 
   //Лошадиные силы
@@ -32,16 +32,13 @@ abstract class Car {
   );
 
   bool isFaster(Car otherCar) {
-    //TODO
+    if (otherCar.maxSpeed > maxSpeed)
+      return true;
+    else
+      return false;
   }
 }
 
-enum CarColor {
-  none,
-  //TODO
-}
+enum CarColor { red, black, white, blue, grey }
 
-enum Transmission {
-  none,
-  //TODO
-}
+enum Transmission { manual, automatic }
