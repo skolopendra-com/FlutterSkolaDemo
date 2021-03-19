@@ -101,7 +101,7 @@ Future<int> checkAndCount(Object object) async {
   else if (object is String) {
     return object.length;
   } else {
-    Future.delayed(Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 5));
     throw FormatException('Only types int and String are accepted');
   }
 }
@@ -141,8 +141,8 @@ Future<List<String>> customUserOrder(List<int> seconds) async {
     //проверка на количество запущенных потоков
     if (countThreads <= 3) {
       if (seconds[i] == 4) {
-        Future.delayed(Duration(seconds: 4));
-        await drinks.add('Latte');
+        await Future.delayed(Duration(seconds: 4));
+        drinks.add('Latte');
         countThreads++;
       }
     } else
@@ -151,8 +151,8 @@ Future<List<String>> customUserOrder(List<int> seconds) async {
 
     if (countThreads <= 3) {
       if (seconds[i] == 6) {
-        Future.delayed(Duration(seconds: 6));
-        await drinks.add('Cappuccino');
+        await Future.delayed(Duration(seconds: 6));
+        drinks.add('Cappuccino');
         countThreads++;
       }
     } else
@@ -160,8 +160,8 @@ Future<List<String>> customUserOrder(List<int> seconds) async {
 
     if (countThreads <= 3) {
       if (seconds[i] == 8) {
-        Future.delayed(Duration(seconds: 8));
-        await drinks.add('Espresso');
+        await Future.delayed(Duration(seconds: 8));
+        drinks.add('Espresso');
         countThreads++;
       }
     } else
