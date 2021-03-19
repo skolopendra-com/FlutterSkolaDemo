@@ -66,7 +66,12 @@ class Lesson5 {
 /// любое другое - [Exception]
 /// Текст исключения может быть любой
 void throwSomeThing(int what) {
-  //TODO
+  if (what == 1)
+    throw IntegerDivisionByZeroException();
+  else if (what == 2)
+    throw FormatException('Should be integer but double founded');
+  else
+    Exception('Something went wrong :(');
 }
 
 /// Простая (2 балла)
@@ -74,7 +79,13 @@ void throwSomeThing(int what) {
 /// Написать функцию, которая делит число на 0.
 /// Поймать исключение и вернуть само число [number]
 int divideByZero(int number) {
-  //TODO
+  try {
+    number ~/ 0;
+  } on Exception {
+    print('Number is divided by 0');
+  } finally {
+    return number;
+  }
 }
 
 /// Средняя (3 балла)
@@ -85,7 +96,14 @@ int divideByZero(int number) {
 /// если пришло что-то еще то бросить [FormatException]
 /// Перед исключением добавить задержку в 5 секунд.
 Future<int> checkAndCount(Object object) async {
-  //TODO
+  if (object is int)
+    return object;
+  else if (object is String) {
+    return object.length;
+  } else {
+    Future.delayed(Duration(seconds: 5));
+    throw FormatException('Only types int and String are accepted');
+  }
 }
 
 /// Средняя (4 балла)
@@ -96,7 +114,12 @@ Future<int> checkAndCount(Object object) async {
 /// выводить его до того пока [Lesson5.countSeconds] не закончит работать
 /// В конце выполнения всех действий вернуть true
 Future<bool> callAll() async {
-  //TODO
+  print(await checkAndCount(42));
+  print(await checkAndCount("42"));
+  Lesson5 lesson5 = Lesson5();
+  await lesson5.countSeconds(42);
+
+  return true;
 }
 
 /// Сложная (5 баллов)
@@ -109,5 +132,41 @@ Future<bool> callAll() async {
 /// Если число в массиве не соотвествует списку выше, то игнорировать его
 /// В конце вернуть список сваренных напитков
 Future<List<String>> customUserOrder(List<int> seconds) async {
-  //TODO
+  //счетчик запущенных потоков
+  int countThreads = 0;
+  //результирующий список сваренных напитков
+  List<String> drinks = [];
+
+  for (var i = 0; i < seconds.length; i++) {
+    //проверка на количество запущенных потоков
+    if (countThreads <= 3) {
+      if (seconds[i] == 4) {
+        Future.delayed(Duration(seconds: 4));
+        await drinks.add('Latte');
+        countThreads++;
+      }
+    } else
+      //если оно превышает 3, кидаем исключение
+      throw Exception('Impossible to process more than 3 orders');
+
+    if (countThreads <= 3) {
+      if (seconds[i] == 6) {
+        Future.delayed(Duration(seconds: 6));
+        await drinks.add('Cappuccino');
+        countThreads++;
+      }
+    } else
+      throw Exception('Impossible to process more than 3 orders');
+
+    if (countThreads <= 3) {
+      if (seconds[i] == 8) {
+        Future.delayed(Duration(seconds: 8));
+        await drinks.add('Espresso');
+        countThreads++;
+      }
+    } else
+      throw Exception('Impossible to process more than 3 orders');
+  }
+
+  return drinks;
 }

@@ -116,31 +116,6 @@ void main() {
     expect({'b': 'c'}, from);
   });
 
-  test('4 points, averageStockPrice', () {
-    expect(averageStockPrice([]), {});
-    expect(
-        averageStockPrice([
-          {'MSFT': 100.0},
-          {'NFLX': 40.0}
-        ]),
-        {'MSFT': 100.0, 'NFLX': 40.0});
-    expect(
-        averageStockPrice([
-          {'MSFT': 100.0},
-          {'MSFT': 200.0},
-          {'NFLX': 40.0}
-        ]),
-        {'MSFT': 150.0, 'NFLX': 40.0});
-    expect(
-        averageStockPrice([
-          {'MSFT': 100.0},
-          {'MSFT': 200.0},
-          {'NFLX': 40.0},
-          {'NFLX': 50.0}
-        ]),
-        {'MSFT': 150.0, 'NFLX': 45.0});
-  });
-
   test('4 points, extractRepeats', () {
     expect(extractRepeats([]), {});
     expect(extractRepeats(['a', 'b', 'a']), {'a': 2});
