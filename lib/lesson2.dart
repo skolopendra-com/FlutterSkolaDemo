@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'lesson1.dart';
+import 'utils.dart';
 
 /// Урок 2: ветвления и циклы
 /// Примеров в уроке - 4
@@ -73,12 +74,8 @@ class Lesson2 {
 /// Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
 /// вернуть строку вида: «21 год», «32 года», «12 лет».
 String ageDescription(int age) {
-  if (age == null) {
-    throw InputValueIsNullException('Input value is null, but not-null value expected');
-  }
-  if (age < 0 || age > 200) {
-    throw NumberIsOutOfRangeException('Input value is out of range');
-  }
+  inputNullValueChecker([age]);
+  inputOutOfRangeChecker(age < 0 || age > 200);
   // Ages that have 1 in second position are exceptions to the rule
   final exceptionNumber = age % 100 >= 11 && age % 100 <= 20;
   if (age % 10 == 1 && !exceptionNumber) return '${age} год';
@@ -95,10 +92,7 @@ String ageDescription(int age) {
 /// и 3, если угроза есть и от ладьи и от слона.
 /// Считать, что ладья и слон не могут загораживать друг друга.
 int rookOrBishopThreatens(int kingX, kingY, rookX, rookY, bishopX, bishopY) {
-  if (kingX == null || kingY == null || rookX == null || rookY == null
-      || bishopX == null || bishopY == null) {
-    throw InputValueIsNullException('Input value is null, but not-null value expected');
-  }
+  inputNullValueChecker([kingX, kingY, rookX, rookY, bishopX, bishopY]);
   final verticalThreat = kingX == rookX;
   final horizontalThreat = kingY == rookY;
   final diagonalThreat = (kingX - bishopX).abs() == (kingY - bishopY).abs();
@@ -115,7 +109,7 @@ int rookOrBishopThreatens(int kingX, kingY, rookX, rookY, bishopX, bishopY) {
 /// прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
 /// Если такой треугольник не существует, вернуть -1.
 int triangleKind(double a, b, c) {
-  defaultChecker([a, b, c]);
+  inputIsNaturalChecker([a, b, c]);
   // If one side is bigger then sum of other sides there is no triangle with these sides
   if (c > a + b || a > b + c || b > a + c) return -1;
   // Writing bigger side to c for convenient calculations
@@ -144,7 +138,7 @@ int triangleKind(double a, b, c) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int digitNumber(int n) {
-  defaultChecker([n]);
+  inputIsNaturalChecker([n]);
   var digitNum = 0;
   do {
     n = n ~/ 10;
@@ -159,7 +153,7 @@ int digitNumber(int n) {
 /// Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
 /// Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
 int fib(int n) {
-  defaultChecker([n]);
+  inputIsNaturalChecker([n]);
   int fibRecursion(int n) {
     assert(n != null, 'Input value should not be null');
     assert(n > 0, 'Input value should be more then 0');
@@ -180,7 +174,7 @@ int fib(int n) {
 /// Для заданных чисел m и n найти наименьшее общее кратное, то есть,
 /// минимальное число k, которое делится и на m и на n без остатка
 int lcm(int m, n) {
-  defaultChecker([n, m]);
+  inputIsNaturalChecker([n, m]);
   // LCM(m, n) = m * n / GCF(m, n)
   final numbersMlp = m * n;
   // GCF(m, n) = the least (before 0) remainder
@@ -199,7 +193,7 @@ int lcm(int m, n) {
 /// Взаимно простые числа не имеют общих делителей, кроме 1.
 /// Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
 bool isCoPrime(int m, n) {
-  defaultChecker([n, m]);
+  inputIsNaturalChecker([n, m]);
   // Finding GCF(m, n)
   while (n != 0) {
     final temp = m;
@@ -216,7 +210,7 @@ bool isCoPrime(int m, n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int revert(int n) {
-  defaultChecker([n]);
+  inputIsNaturalChecker([n]);
   if (n < 10) return n;
   var revertNumber = 0;
   do {
@@ -235,7 +229,7 @@ int revert(int n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 bool isPalindrome(int n) {
-  defaultChecker([n]);
+  inputIsNaturalChecker([n]);
   // Taking first and last numbers of input number
   // Comparing them and then removing them from input number to continue iteration
   while (n > 9) {
@@ -256,7 +250,7 @@ bool isPalindrome(int n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int squareSequenceDigit(int n) {
-  defaultChecker([n]);
+  inputIsNaturalChecker([n]);
   var currentIterNumber = 1;
   var squareOfNumber;
   // Calculating square of each natural number
@@ -284,7 +278,7 @@ int squareSequenceDigit(int n) {
 ///
 /// Использовать операции со строками в этой задаче запрещается.
 int fibSequenceDigit(int n) {
-  defaultChecker([n]);
+  inputIsNaturalChecker([n]);
   var currentIterNumber = 1;
   var fibOfNumber;
   // Calculating fib of each natural number
@@ -302,32 +296,4 @@ int fibSequenceDigit(int n) {
   }
   assert((fibOfNumber % 10).toString().length == 1, 'Return number should be one digit');
   return fibOfNumber % 10;
-}
-
-// Exceptions
-class NumberIsOutOfRangeException implements Exception {
-  String msg;
-  NumberIsOutOfRangeException(this.msg);
-}
-
-class InputValueIsNullException implements Exception {
-  String msg;
-  InputValueIsNullException(this.msg);
-}
-
-class WrongInputStateException implements Exception {
-  String msg;
-  WrongInputStateException(this.msg);
-}
-
-// utils
-void defaultChecker(List list) {
-  for (var element in list) {
-    if (element == null) {
-      throw InputValueIsNullException('Input value is null, but not-null value expected');
-    }
-    if (element < 0) {
-      throw NumberIsOutOfRangeException('Input value is out of range');
-    }
-  }
 }

@@ -1,10 +1,12 @@
+import 'package:main/utils.dart';
+
 abstract class Car {
   //Название марки машины
   String name;
 
   //Объем двигателя
   double get engineVolume {
-    //TODO
+    return this.horsepower == null ? (this.horsepower * 0.7355) : null;
   }
 
   //Лошадиные силы
@@ -32,16 +34,20 @@ abstract class Car {
   );
 
   bool isFaster(Car otherCar) {
-    //TODO
+    nullValueChecker([otherCar.maxSpeed, this.maxSpeed == null]);
+    return this.maxSpeed > otherCar.maxSpeed;
   }
 }
 
 enum CarColor {
-  none,
-  //TODO
+  RED,
+  BLUE,
+  WHITE,
+  YELLOW,
+  ORANGE
 }
 
 enum Transmission {
-  none,
-  //TODO
+  HAND,
+  AUTO
 }

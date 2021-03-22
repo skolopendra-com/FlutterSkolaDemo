@@ -1,3 +1,5 @@
+import '../utils.dart';
+
 /// Урок 5: асинхронное программирование и исключения
 /// Примеров в уроке - 5
 /// Заданий в уроке - 5
@@ -66,7 +68,10 @@ class Lesson5 {
 /// любое другое - [Exception]
 /// Текст исключения может быть любой
 void throwSomeThing(int what) {
-  //TODO
+  inputNullValueChecker([what]);
+  if (what == 1) throw IntegerDivisionByZeroException();
+  if (what == 2) throw FormatException();
+  throw Exception('');
 }
 
 /// Простая (2 балла)
@@ -74,7 +79,11 @@ void throwSomeThing(int what) {
 /// Написать функцию, которая делит число на 0.
 /// Поймать исключение и вернуть само число [number]
 int divideByZero(int number) {
-  //TODO
+  inputNullValueChecker([number]);
+  try {
+    number / 0;
+  } catch (exception) { }
+  return number;
 }
 
 /// Средняя (3 балла)
@@ -85,7 +94,10 @@ int divideByZero(int number) {
 /// если пришло что-то еще то бросить [FormatException]
 /// Перед исключением добавить задержку в 5 секунд.
 Future<int> checkAndCount(Object object) async {
-  //TODO
+  inputNullValueChecker([object]);
+  if (object is int) return object;
+  if (object is String) return object.length;
+  return Future.delayed(Duration(seconds: 5), () => throw FormatException());
 }
 
 /// Средняя (4 балла)
@@ -96,7 +108,10 @@ Future<int> checkAndCount(Object object) async {
 /// выводить его до того пока [Lesson5.countSeconds] не закончит работать
 /// В конце выполнения всех действий вернуть true
 Future<bool> callAll() async {
-  //TODO
+  await checkAndCount(42);
+  await checkAndCount('42');
+  await Lesson5().countSeconds(42);
+  return true;
 }
 
 /// Сложная (5 баллов)
@@ -109,5 +124,31 @@ Future<bool> callAll() async {
 /// Если число в массиве не соотвествует списку выше, то игнорировать его
 /// В конце вернуть список сваренных напитков
 Future<List<String>> customUserOrder(List<int> seconds) async {
-  //TODO
+  inputNullValueChecker([seconds]);
+  var drinksCount = 0;
+  var drinks = <String>[];
+  var futures = <Future>[];
+  for (var element in seconds) {
+    switch(element) {
+      case 4:
+        drinksCount++;
+        if (drinksCount > 3) throw Error();
+        futures.add(Future.delayed(Duration(seconds: 4), () => drinks.add('Latte')));
+        break;
+      case 6:
+        drinksCount++;
+        if (drinksCount > 3) throw Error();
+        futures.add(Future.delayed(Duration(seconds: 6), () => drinks.add('Cappuccino')));
+        break;
+      case 8:
+        drinksCount++;
+        if (drinksCount > 3) throw Error();
+        futures.add(Future.delayed(Duration(seconds: 8), () => drinks.add('Espresso')));
+        break;
+      default:
+        break;
+    }
+  }
+  await Future.wait(futures);
+  return drinks;
 }

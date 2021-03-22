@@ -1,3 +1,4 @@
+import '../utils.dart';
 import 'animals/animal.dart';
 import 'cars/car.dart';
 
@@ -101,7 +102,11 @@ class Lesson4 {
 /// а второе - его цена
 Map<double, double> fuelCountAndPrice(
     Car car, int routeInMeters, double fuelPricePerLiter) {
-  //TODO
+  inputNullValueChecker([car, routeInMeters, fuelPricePerLiter]);
+  inputOutOfRangeChecker(routeInMeters < 0 || fuelPricePerLiter < 0);
+  inputWrongStateChecker(car.fuelConsumption == null || car.fuelConsumption < 0);
+  final fuelConsumed = car.fuelConsumption * routeInMeters / 100;
+  return {fuelConsumed.roundToDouble(): (fuelConsumed * fuelPricePerLiter).roundToDouble()};
 }
 
 /// Средняя (2 балла)
@@ -109,5 +114,14 @@ Map<double, double> fuelCountAndPrice(
 /// После создания всех типов машин, перейти в [lesson4_test]
 /// и включить тест [fastestCarAlive]
 Car fastestCarAlive(List<Car> cars) {
-  //TODO
+  inputNullValueChecker([cars]);
+  var fastest = cars.first;
+  for (var car in cars) {
+    if (car != null) {
+      if ((car.maxSpeed ?? 0) > (fastest.maxSpeed ?? 0)) {
+        fastest = car;
+      }
+    }
+  }
+  return fastest;
 }
