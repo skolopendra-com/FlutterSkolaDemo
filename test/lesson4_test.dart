@@ -50,7 +50,7 @@ void main() {
   });
 
   /// Рабочий тест - часть задания
-  /// TODO
+  /// Ожидается Tesla приходит Tesla =)
   test('2 points, fastestCarAlive', () {
     var carPark = [Lada(maxSpeed: 100), Tesla(maxSpeed: 200), Reno(maxSpeed: 167)];
     expect(fastestCarAlive(carPark), Tesla());
