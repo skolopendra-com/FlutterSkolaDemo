@@ -85,15 +85,15 @@ void main() {
     expect(await callAll(), true);
   });
 
-  test('5 points, customUserOrder', () async {
+  test('5 points, customUserOrder',  () async {
     expect(
         await customUserOrder([4, 6, 8]), ['Latte', 'Cappuccino', 'Espresso']);
-    expect(await customUserOrder([4, 1, 6, 2, 3, 8, 42]),
-        ['Latte', 'Cappuccino', 'Espresso']);
-    try {
-      await checkAndCount([42, '42']);
-    } catch (err) {
-      expect(err is Exception, true);
-    }
-  });
+      expect(await customUserOrder([4, 1, 6, 2, 3, 8, 42]),
+          ['Latte', 'Cappuccino', 'Espresso']);
+      try {
+        await checkAndCount([42, '42']);
+      } catch (err) {
+        expect(err is Exception, true);
+      }
+    }, timeout:Timeout(Duration(seconds: 120)),);
 }

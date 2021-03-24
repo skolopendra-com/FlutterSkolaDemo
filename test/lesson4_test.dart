@@ -53,6 +53,6 @@ void main() {
     // var carPark = [
     //   Tesla(), Lada(), Reno(),
     // ];
-    // expect(fastestCarAlive(carPark), Tesla());
+    // expect(fastestCarAlive(carPark).name, Tesla().name);
   });
 }
